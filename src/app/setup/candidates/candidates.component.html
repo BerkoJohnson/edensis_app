@@ -1,0 +1,72 @@
+<!-- Candidates -->
+<div class="wrapper">
+  <h1 class="sub_header">Candidates</h1>
+
+  <div class="columns">
+    <form class="column" action="candidates.php" method="post">
+      <fieldset>
+        <legend>Add New Candidate</legend>
+        <div class="fields">
+          <div class="field">
+            <!-- Automatically send the selected class and reload the page
+                    with the students in that class for the candidate's selection
+                -->
+            <label for="class">Class</label>
+            <select name="class" id="class">
+              <option value="">Choose Class</option>
+              <option value="2A1">2A1</option>
+              <option value="2A2">2A2</option>
+              <option value="2A3">2A3</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="student">Full Name</label>
+            <select name="student" id="student">
+              <option value="">Select Student</option>
+              <option value="100">Nana Berko David</option>
+              <option value="101">Michelle Afia Berko</option>
+              <option value="101">Franklin Boateng Berko</option>
+              <option value="101">Melvina Aboagyewaa Berko</option>
+              <option value="101">Nathaniel Adu Berko</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="nickname">Nickname</label>
+            <input
+              type="text"
+              name="nickname"
+              id="nickname"
+              placeholder="Enter Nickname if any"
+            />
+          </div>
+          <div class="field">
+            <label for="nickname">Aspiring For</label>
+            <select id="position" name="position">
+              <option>Chose Position</option>
+              <option value="Boys Prefect">Boys Prefect</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="photo">Photo</label>
+            <input type="file" name="photo" id="photo" />
+          </div>
+          <div class="image">
+            <img id="candidate_photo" alt="Candidate Photo Here" />
+          </div>
+        </div>
+        <input type="submit" value="Save Candidate" name="submit" />
+      </fieldset>
+    </form>
+    <table class="column" border="1" cellspacing="10" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Name of Candidate</th>
+          <th>Photo</th>
+          <th>AKA</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<nav class="nav">
+  <ul class="nav_items">
+    <li class="nav_item">
+      <a class="nav_link" [routerLink]="['dashboard']" routerLinkActive="active">Dashboard</a>
+    </li>
+    <li class="nav_item dropdown">
+       <a class="nav_link" [routerLink]="['setup']" routerLinkActive="active">Setup</a>
+    </li>
+    <li class="nav_item">
+      <a class="nav_link" [routerLink]="['validation']" routerLinkActive="active">Validation</a>
+    </li>
+    <li class="nav_item">
+      <a class="nav_link" [routerLink]="['voting_center']" routerLinkActive="active">Voting Center</a>
+    </li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

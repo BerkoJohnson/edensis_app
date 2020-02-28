@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <p class="error">{{errors | json}}</p>
+
+  <form [formGroup]="loginForm" class="login" (ngSubmit)="submitForm()">
+    <fieldset>
+      <legend>Login with your username and password</legend>
+      <div class="fields">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" formControlName="username" />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" formControlName="password" />
+        </div>
+      </div>
+      <input type="submit" name="submit" value="Login to Continue" />
+    </fieldset>
+  </form>
+</div>
