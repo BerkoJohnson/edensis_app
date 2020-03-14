@@ -1,53 +1,71 @@
 <!-- Positions -->
 <div class="wrapper">
-  <h1 class="sub_header">Positions</h1>
-<!--
-  <pre style="color: white;">
-    {{ positions | json }}
-  </pre> -->
-
+  <h4 class="sub_header">Positions</h4>
   <div class="columns">
-    <form class="column" [formGroup]="positionForm" (ngSubmit)="submitForm()">
-      <fieldset>
-        <legend>Add New Position</legend>
-
-        <div class="fields">
-          <div class="field">
-            <label for="title">Position's Title</label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              placeholder="Enter title"
-              formControlName="title"
-              
-            />
+    <div class="column col-1">
+      <table border="1" cellspacing="10" cellpadding="5">
+        <thead>
+          <tr>
+            <th>Title of Position</th>
+            <th>Vote Cast Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let position of positions; let i = index">
+            <td>{{ position.title }}</td>
+            <td>{{ position.cast_type }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="column col-1">
+      <form [formGroup]="positionForm" (ngSubmit)="submitForm()">
+        <fieldset>
+          <legend>Add New Position</legend>
+          <div class="fields">
+            <div class="field">
+              <label for="election">Election</label>
+              <select name="election" id="election" formControlName="election">
+                <option value="">Select Election</option>
+                <option
+                  *ngFor="let elec of elections"
+                  [value]="elec._id"
+                  [selected]="(setup.$election | async)._id === elec._id"
+                  >{{ elec.title }}</option
+                >
+              </select>
+            </div>
+            <div class="field">
+              <label for="title">Position's Title</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Enter title"
+                formControlName="title"
+              />
+            </div>
+            <div class="field">
+              <label for="cast_type">Vote Cast Type</label>
+              <select
+                name="cast_type"
+                id="cast_type"
+                formControlName="cast_type"
+              >
+                <option value="">Select Type</option>
+                <option value="Thumbs">Thumbs</option>
+                <option value="Yes/No">Yes/No</option>
+              </select>
+            </div>
           </div>
-          <div class="field">
-            <label for="cast_type">Vote Cast Type</label>
-            <select name="cast_type" id="cast_type" formControlName="cast_type">
-              <option value="">Select Type</option>
-              <option value="Thumbs Up">Thumbs Up</option>
-              <option value="Yes or No">Yes or No</option>
-            </select>
-          </div>
-        </div>
-        <input type="submit" value="Save Position" name="submit" [disabled]="!positionForm.valid" />
-      </fieldset>
-    </form>
-    <table class="column" border="1" cellspacing="10" cellpadding="5">
-      <thead>
-        <tr>
-          <th>Title of Position</th>
-          <th>Vote Cast Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cur_position of positions; let i = index">
-          <td>{{ cur_position.title }}</td>
-          <td>{{ cur_position.cast_type }}</td>
-        </tr>
-      </tbody>
-    </table>
+          <input
+            type="submit"
+            value="Save Position"
+            name="submit"
+            [disabled]="!positionForm.valid"
+          />
+        </fieldset>
+      </form>
+    </div>
   </div>
 </div>

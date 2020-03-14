@@ -17,6 +17,16 @@ body {
   box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
+.attention-box {
+  width: 500px;
+  margin:20px auto;
+  // margin-top: 10px;
+
+  fieldset {
+    padding: 2px;
+  }
+}
+
 .main_header {
   text-align: center;
   text-transform: uppercase;
@@ -26,9 +36,14 @@ body {
 
 .sub_header {
   color: #54aadd;
-  font-size: 2rem;
+  font-size: 1.2rem;
   // margin: 0;
   padding: 0;
+  margin: 20px 0;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid rgb(11, 105, 105);
+  text-transform: uppercase;
 }
 
 .sections {
@@ -131,11 +146,24 @@ input[type="submit"]:not(:disabled):hover {
 
 .column {
   margin-right: 20px;
+
+  &.col-1 {
+    flex: 1;
+  }
+
+  &.col-2 {
+    flex: 2;
+  }
+
+  &.col-3 {
+    flex: 3;
+  }
 }
 
 table {
   border-collapse: collapse;
   color: white;
+  width: 100%;
 }
 
 .login {
@@ -148,10 +176,12 @@ table {
 }
 
 #candidate_photo {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   border: 1px solid burlywood;
   background: #f0f018;
+
+  margin: 10px 0;
 }
 /*#b24920*/
 /*#ffb300*/
@@ -170,16 +200,17 @@ table {
 }
 
 .nav_sub {
-  background-color: #aff;
+  background-color: rgb(11, 105, 105);
+  color: #fff;
   margin: 0 auto;
-  width: 200px;
+  width: 800px;
   border-radius: 3px;
 
   .nav_items {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
 
-    .nav_item {
+    .nav_link {
       color: #fff;
     }
   }
@@ -207,11 +238,15 @@ table {
   }
 }
 
-
 // Table styles
 table {
   th {
     background-color: #bac;
     color: rgba(0, 0, 0, 0.7);
   }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
 }

@@ -7,12 +7,19 @@ import { PositionsComponent } from "./positions/positions.component";
 import { CandidatesComponent } from "./candidates/candidates.component";
 import { SetupComponent } from "./setup.component";
 import { VotersComponent } from "./voters/voters.component";
+import { ElectionsComponent } from './elections/elections.component';
 
 const routes: Routes = [
-  { path: "positions", component: PositionsComponent },
-  { path: "candidates", component: CandidatesComponent },
-  { path: "voters", component: VotersComponent },
-  { path: "", component: SetupComponent }
+  {
+    path: "",
+    component: SetupComponent,
+    children: [
+      { path: "elections", component: ElectionsComponent },
+      { path: "positions", component: PositionsComponent },
+      { path: "candidates", component: CandidatesComponent },
+      { path: "voters", component: VotersComponent }
+    ]
+  }
 ];
 
 @NgModule({
@@ -20,7 +27,8 @@ const routes: Routes = [
     PositionsComponent,
     CandidatesComponent,
     SetupComponent,
-    VotersComponent
+    VotersComponent,
+    ElectionsComponent
   ],
   imports: [
     CommonModule,
