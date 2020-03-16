@@ -5,7 +5,7 @@ import {
   PositionPayload,
   PositionsPayload,
   Election
-} from './interfaces';
+} from '../interfaces';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // import { tap } from "rxjs/operators";
@@ -15,20 +15,20 @@ import { tap } from 'rxjs/operators';
 })
 export class PositionService {
   constructor(private http: HttpClient) {
-    this.loadPositions();
+    // this.loadPositions();
   }
 
   _positions = new BehaviorSubject<PositionsPayload>(null);
   $positions = this._positions.asObservable();
 
-  loadPositions() {
-    const election = JSON.parse(
-      localStorage.getItem('default-election')
-    ) as Election;
-    if (election) {
-      this.getPositions(election._id).subscribe();
-    }
-  }
+  // loadPositions() {
+  //   const election = JSON.parse(
+  //     localStorage.getItem('default-election')
+  //   ) as Election;
+  //   if (election) {
+  //     this.getPositions(election._id).subscribe();
+  //   }
+  // }
 
   /////////////////////// POSITION STARTS HERE /////////////////////////
 

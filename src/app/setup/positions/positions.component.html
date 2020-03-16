@@ -1,7 +1,12 @@
 <!-- Positions -->
 <div class="wrapper">
   <h4 class="sub_header">Positions</h4>
-  <div class="columns">
+
+  <div class="hint" style="color: white;text-align: center;" *ngIf="!(electionService.election | async)">
+    <p>Choose an election to use this page!</p>
+  </div>
+
+  <div class="columns" *ngIf="(electionService.election | async) as current_election">
     <div class="column col-1">
       <table border="1" cellspacing="10" cellpadding="5">
         <thead>
@@ -11,12 +16,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="
-              let position of (positionService.$positions | async)?.data;
+          <tr *ngFor="
+              let position of current_election?.positions;
               let i = index
-            "
-          >
+            ">
             <td class="spread">
               <span> {{ position.title }}</span>
               <a (click)="editPositon(position._id)">Edit</a>
@@ -27,7 +30,7 @@
       </table>
       <button type="button" (click)="isEdit = false">Add New Position</button>
     </div>
-    <div class="column col-1">
+    <div class="column col-1" >
       <form [formGroup]="positionForm" (ngSubmit)="submitForm()">
         <fieldset>
           <legend *ngIf="isEdit === false">Add New Position</legend>
@@ -37,41 +40,29 @@
               <label for="election">Election</label>
               <select name="election" id="election" formControlName="election">
                 <option value="">Select Election</option>
-                <option *ngFor="let elec of elections" [value]="elec._id">{{
+                <option *ngFor="let elec of elections" [value]="elec._id"
+                [selected] = "elec._id === current_election._id"
+                >{{
                   elec.title
                 }}</option>
               </select>
             </div>
             <div class="field">
               <label for="title">Position's Title</label>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                placeholder="Enter title"
-                formControlName="title"
-              />
+              <input type="text" name="title" id="title" placeholder="Enter title" formControlName="title" />
             </div>
             {{ title.errors | json }}
             <div class="field">
               <label for="cast_type">Vote Cast Type</label>
-              <select
-                name="cast_type"
-                id="cast_type"
-                formControlName="cast_type"
-              >
+              <select name="cast_type" id="cast_type" formControlName="cast_type">
                 <option value="">Select Type</option>
                 <option value="Thumbs">Thumbs</option>
                 <option value="Yes/No">Yes/No</option>
               </select>
             </div>
           </div>
-          <input
-            type="submit"
-            [value]="isEdit === false ? 'Save Position' : 'Update Position'"
-            name="submit"
-            [disabled]="!positionForm.valid"
-          />
+          <input type="submit" [value]="isEdit === false ? 'Save Position' : 'Update Position'" name="submit"
+            [disabled]="!positionForm.valid" />
         </fieldset>
       </form>
     </div>

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { BROWSER_STORAGE } from './interfaces/storage';
+import { BROWSER_STORAGE } from '../interfaces/storage';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User } from './interfaces/user';
-import { Authresponse } from './interfaces/authresponse';
+import { User } from '../interfaces/user';
+import { Authresponse } from '../interfaces/authresponse';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

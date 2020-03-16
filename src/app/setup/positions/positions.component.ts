@@ -1,23 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   Election,
   Position,
-  PositionPayload,
-  ElectionPayload
-} from "src/app/interfaces";
-import { PositionService } from "src/app/position.service";
-import { ElectionService } from "src/app/election.service";
+} from 'src/app/interfaces';
+import { PositionService } from 'src/app/services/position.service';
+import { ElectionService } from 'src/app/services/election.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-positions",
-  templateUrl: "./positions.component.html",
-  styleUrls: ["./positions.component.scss"]
+  selector: 'app-positions',
+  templateUrl: './positions.component.html',
+  styleUrls: ['./positions.component.scss']
 })
 export class PositionsComponent implements OnInit {
-  positions: Position[];
   elections: Election[];
-  currentElection: Election;
 
   positionForm: FormGroup;
   isEdit = false;
@@ -26,26 +23,17 @@ export class PositionsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public positionService: PositionService,
-    public electionService: ElectionService
+    public electionService: ElectionService,
+    private route: ActivatedRoute
   ) {
     this.positionForm = this.fb.group({
-      title: ["", [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
-      election: ["", Validators.required],
-      cast_type: ["", Validators.required]
+      title: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      election: ['', Validators.required],
+      cast_type: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.electionService.$election.subscribe(el => (this.currentElection = el));
-
-    // Set election field to the current election stored in local storage as election
-    this.election.setValue(this.currentElection._id);
-
-    // Get the positions for the current election
-    // this.positionService.$positions.subscribe(
-    //   pos => (this.positions = pos.data)
-    // );
-
     // Get all elections to populate the elections field in the position form
     this.electionService
       .getElections()
@@ -92,14 +80,14 @@ export class PositionsComponent implements OnInit {
   }
 
   get title() {
-    return this.positionForm.get("title");
+    return this.positionForm.get('title');
   }
 
   get cast_type() {
-    return this.positionForm.get("cast_type");
+    return this.positionForm.get('cast_type');
   }
 
   get election() {
-    return this.positionForm.get("election");
+    return this.positionForm.get('election');
   }
 }

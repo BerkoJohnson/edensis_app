@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ElectionService } from "src/app/election.service";
-import { Election, ElectionPayload } from "src/app/interfaces";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ElectionService } from 'src/app/services/election.service';
+import { Election, ElectionPayload } from 'src/app/interfaces';
 
 @Component({
-  selector: "app-elections",
-  templateUrl: "./elections.component.html",
-  styleUrls: ["./elections.component.scss"]
+  selector: 'app-elections',
+  templateUrl: './elections.component.html',
+  styleUrls: ['./elections.component.scss']
 })
 export class ElectionsComponent implements OnInit {
   elections: ElectionPayload;
@@ -15,9 +15,9 @@ export class ElectionsComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private election: ElectionService) {
     this.electionForm = this.fb.group({
-      title: ["", Validators.required],
-      school: ["", Validators.required],
-      academicYear: ["", Validators.required]
+      title: ['', Validators.required],
+      school: ['', Validators.required],
+      academicYear: ['', Validators.required]
     });
   }
 
@@ -26,7 +26,7 @@ export class ElectionsComponent implements OnInit {
   }
 
   useElection(election: Election) {
-    this.election.storeElection(election);
+    this.election.setElection(election);
   }
 
   submitForm() {
@@ -44,13 +44,13 @@ export class ElectionsComponent implements OnInit {
   }
 
   get title() {
-    return this.electionForm.get("title");
+    return this.electionForm.get('title');
   }
 
   get school() {
-    return this.electionForm.get("school");
+    return this.electionForm.get('school');
   }
   get academicYear() {
-    return this.electionForm.get("academicYear");
+    return this.electionForm.get('academicYear');
   }
 }

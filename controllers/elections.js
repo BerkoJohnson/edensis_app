@@ -1,5 +1,4 @@
 const Election = require("../models/Election");
-const Settings = require("../models/Settings");
 const ErrorResponse = require("../utils/errorResponse");
 
 // Get Positions
@@ -7,7 +6,7 @@ exports.fetchElections = async (req, res, next) => {
   try {
     const election = await Election.find().populate({
       path: "positions",
-      select: "title _id"
+      select: "title cast_type _id"
     });
     res.status(200).json({
       success: true,

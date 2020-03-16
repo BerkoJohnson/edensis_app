@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { HistoryService } from '../history.service';
+import { AuthService } from '../services/auth.service';
+import { HistoryService } from '../services/history.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -35,9 +35,10 @@ export class LoginComponent implements OnInit {
       this.auth
         .login({ email: this.f.email, password: this.f.password })
         .subscribe(p => {
+          console.log(1);
           this.router.navigateByUrl(this.history.getPreviousUrl());
         }, (error: HttpErrorResponse) => {
-          this.errors = error.message;
+          this.errors = error.error.message;
         });
     }
   }
