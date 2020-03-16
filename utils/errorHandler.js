@@ -5,6 +5,9 @@ const errorHandler = (err, req, res, next) => {
     
     let error = {...err};
     
+    if(err.name ==='UnauthorizedError') {
+        error = new ErrorResponse(err.message, 401);
+      }
     
     if(err.name === 'CastError') {
         const message = `Resource not found with id ${err.value}`;

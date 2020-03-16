@@ -3,11 +3,14 @@
 
   <form [formGroup]="loginForm" class="login" (ngSubmit)="submitForm()">
     <fieldset>
-      <legend>Login with your username and password</legend>
+      <legend>Login with your email and password</legend>
+
+      <div class="error">{{ errors }}</div>
+      
       <div class="fields">
         <div class="field">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" formControlName="username" />
+          <label for="email">Username</label>
+          <input type="email" name="email" id="email" formControlName="email" />
         </div>
         <div class="field">
           <label for="password">Password</label>

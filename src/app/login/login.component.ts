@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { HistoryService } from '../history.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +12,37 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  errors = [];
+  errors = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private auth: AuthService,
+    private history: HistoryService) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
-   }
+  }
 
   ngOnInit(): void {
   }
 
   submitForm() {
-    this.loginForm.value;
-    this.auth.hasLoggedIn();
+    if (!this.f.email || !this.f.password) {
+      this.errors = 'All fields are required';
+    } else {
+      this.auth
+        .login({ email: this.f.email, password: this.f.password })
+        .subscribe(p => {
+          this.router.navigateByUrl(this.history.getPreviousUrl());
+        }, (error: HttpErrorResponse) => {
+          this.errors = error.message;
+        });
+    }
   }
 
+  get f() {
+    return this.loginForm.value;
+  }
 }

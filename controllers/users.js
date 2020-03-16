@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const passport = require('passport');
+
 
 // Get Users
 exports.fetchUsers = async (req, res, next) => {
@@ -61,20 +63,23 @@ exports.fetchImage = async (req, res, next) => {
 exports.createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    const user = new User({ name, email });
-    user.hashPassword(password);
-    const savedUser = await user.save();
 
-    if (!savedUser) {
-      return next(new ErrorResponse(`User creation failed`, 400));
+    if(!name || !email || !password) {
+      return next(new ErrorResponse('All fields are required', 400));
     }
+    const user = new User({ name, email });
+    user.hashPassword(password); // Generate salt and hash password
+    await user.save();
 
+    const token = user.generateJwt();
     res.status(201).json({
       success: true,
-      data: savedUser
+      data: {
+        token: token
+      },
     });
   } catch (error) {
-    return next(new ErrorResponse(`User creation failed`, 400));
+    return next(error);
   }
 };
 
@@ -134,21 +139,43 @@ exports.resetPassword = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
-
-    // If user exists with email  provided
-    if (!user) {
-      return next(new ErrorResponse(`Invalid Credentials`, 401));
+    
+    if( !email || !password) {
+      return next(new ErrorResponse('All fields are required', 400));
     }
+    
+    // const user = await User.findOne({ email });
 
-    // Check if passwords match
-    if (!user.verifyPassword(password)) {
-      return next(new ErrorResponse(`Invalid Credentials`, 401));
-    }
+    // // If user exists with email  provided
+    // if (!user) {
+    //   return next(new ErrorResponse(`Invalid Credentials`, 401));
+    // }
 
-    res.status(200).json({
-      success: true
-    });
+    // // Check if passwords match
+    // if (!user.verifyPassword(password)) {
+    //   return next(new ErrorResponse(`Invalid Credentials`, 401));
+    // }
+
+    // res.status(200).json({
+    //   success: true
+    // });
+
+    let token;
+
+    passport.authenticate('local', (err, user, info) => {
+      if(err) {
+        res.status(404).json(err);
+      }
+
+      if(user) {
+        token = user.generateJwt();
+        return res.status(200).json({token});
+      }
+      else {
+        res.status(401).json(info);
+      }
+    })(req, res);
+
   } catch (error) {
     next(new ErrorResponse("Logging user in failed", 401));
   }

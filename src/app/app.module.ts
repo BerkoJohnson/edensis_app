@@ -1,20 +1,21 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { LoginComponent } from "./login/login.component";
-import { ValidationComponent } from "./validation/validation.component";
-import { VotingCenterComponent } from "./voting-center/voting-center.component";
-import { VotingResultsComponent } from "./voting-results/voting-results.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { AuthService } from "./auth.service";
-import { AppService } from "./app.service";
-import { SetupService } from "./setup.service";
-import { ElectionService } from "./election.service";
-import { PositionService } from "./position.service";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { ValidationComponent } from './validation/validation.component';
+import { VotingCenterComponent } from './voting-center/voting-center.component';
+import { VotingResultsComponent } from './voting-results/voting-results.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthService } from './auth.service';
+import { AppService } from './app.service';
+import { ElectionService } from './election.service';
+import { PositionService } from './position.service';
+import { HomeComponent } from './home/home.component';
+import { UiModule } from './ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,11 @@ import { PositionService } from "./position.service";
     ValidationComponent,
     VotingCenterComponent,
     VotingResultsComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent
   ],
   imports: [
+    UiModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

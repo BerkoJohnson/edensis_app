@@ -25,7 +25,7 @@ router
   .get(userCtrl.fetchUsers);
 
 router.route("/resetpassword").put(userCtrl.resetPassword);
-router.route("/login").post(userCtrl.login);
+
 router.post(
   "/:id/setuserphoto",
   upload.single("user"),

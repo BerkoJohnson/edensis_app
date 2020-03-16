@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const electionsCtrl = require("../controllers/elections");
 
+const auth = require('../utils/auth');
+
+router.use(auth);
+
 router
   .route("/")
   .post(electionsCtrl.createElection)

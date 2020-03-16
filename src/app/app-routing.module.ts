@@ -1,43 +1,43 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from "./login/login.component";
-import { VotingCenterComponent } from "./voting-center/voting-center.component";
-import { ValidationComponent } from "./validation/validation.component";
-import { VotingResultsComponent } from "./voting-results/voting-results.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { AuthGuard } from "./auth.guard";
+import { LoginComponent } from './login/login.component';
+import { VotingCenterComponent } from './voting-center/voting-center.component';
+import { ValidationComponent } from './validation/validation.component';
+import { VotingResultsComponent } from './voting-results/voting-results.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  // { path: "", redirectTo: "login", pathMatch: "full" },
-  { path: "login", component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "setup",
+    path: 'setup',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import("./setup/setup.module").then(mod => mod.SetupModule)
+      import('./setup/setup.module').then(mod => mod.SetupModule)
   },
   {
-    path: "validation",
+    path: 'validation',
     component: ValidationComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "voting_center",
+    path: 'voting_center',
     component: VotingCenterComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "results",
+    path: 'results',
     component: VotingResultsComponent,
     canActivate: [AuthGuard]
   },
-  // { path: "***", redirectTo: "login", pathMatch: "full" },
+  { path: '***', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
