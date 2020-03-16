@@ -22,8 +22,11 @@ export interface Position extends Document {
   candidates?: string[] | Candidate[];
 }
 
-export interface PositionPayload extends Payload {
+export interface PositionsPayload extends Payload {
   data: Position[];
+}
+export interface PositionPayload extends Payload {
+  data: Position;
 }
 
 export interface Document {

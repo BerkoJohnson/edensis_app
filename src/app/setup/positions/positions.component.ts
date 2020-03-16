@@ -6,7 +6,8 @@ import {
   PositionPayload,
   ElectionPayload
 } from "src/app/interfaces";
-import { SetupService } from "src/app/setup.service";
+import { PositionService } from "src/app/position.service";
+import { ElectionService } from "src/app/election.service";
 
 @Component({
   selector: "app-positions",
@@ -16,22 +17,59 @@ import { SetupService } from "src/app/setup.service";
 export class PositionsComponent implements OnInit {
   positions: Position[];
   elections: Election[];
+  currentElection: Election;
 
   positionForm: FormGroup;
+  isEdit = false;
+  positionToUpdate: Position;
 
-  constructor(private fb: FormBuilder, public setup: SetupService) {
+  constructor(
+    private fb: FormBuilder,
+    public positionService: PositionService,
+    public electionService: ElectionService
+  ) {
     this.positionForm = this.fb.group({
-      title: ["", Validators.required],
+      title: ["", [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       election: ["", Validators.required],
       cast_type: ["", Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.setup.getPositions().subscribe(pos => (this.positions = pos.data));
-    this.setup
+    this.electionService.$election.subscribe(el => (this.currentElection = el));
+
+    // Set election field to the current election stored in local storage as election
+    this.election.setValue(this.currentElection._id);
+
+    // Get the positions for the current election
+    // this.positionService.$positions.subscribe(
+    //   pos => (this.positions = pos.data)
+    // );
+
+    // Get all elections to populate the elections field in the position form
+    this.electionService
       .getElections()
       .subscribe(elections => (this.elections = elections.data));
+  }
+
+  editPositon(id: string) {
+    // Set isEdit to true
+    this.isEdit = true;
+
+    // Cannot change the election
+    this.election.disable({
+      emitEvent: true,
+      onlySelf: true
+    });
+
+    // Fetch Position from DB
+    if (id) {
+      this.positionService.getPosition(id).subscribe(p => {
+        this.positionToUpdate = p.data;
+        this.title.setValue(p.data.title);
+        this.cast_type.setValue(p.data.cast_type);
+      });
+    }
   }
 
   submitForm() {
@@ -41,11 +79,16 @@ export class PositionsComponent implements OnInit {
 
     const pos: Position = {
       title: this.title.value,
-      election: this.election.value,
       cast_type: this.cast_type.value
     };
 
-    this.setup.createPosition(pos).subscribe(p => console.log(p));
+    if (!this.isEdit) {
+      this.positionService.createPosition(pos).subscribe();
+    } else {
+      this.positionService
+        .updatePosition(this.positionToUpdate._id, pos)
+        .subscribe();
+    }
   }
 
   get title() {

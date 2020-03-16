@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { SetupService } from "src/app/setup.service";
+import { ElectionService } from "src/app/election.service";
 import { Election, ElectionPayload } from "src/app/interfaces";
 
 @Component({
@@ -13,7 +13,7 @@ export class ElectionsComponent implements OnInit {
 
   electionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private setup: SetupService) {
+  constructor(private fb: FormBuilder, private election: ElectionService) {
     this.electionForm = this.fb.group({
       title: ["", Validators.required],
       school: ["", Validators.required],
@@ -22,11 +22,11 @@ export class ElectionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setup.getElections().subscribe(elecs => (this.elections = elecs));
+    this.election.getElections().subscribe(elecs => (this.elections = elecs));
   }
 
   useElection(election: Election) {
-    this.setup.storeElection(election);
+    this.election.storeElection(election);
   }
 
   submitForm() {
@@ -40,7 +40,7 @@ export class ElectionsComponent implements OnInit {
       academicYear: this.academicYear.value
     };
 
-    this.setup.createElection(elec).subscribe(e => console.log(e));
+    this.election.createElection(elec).subscribe(e => console.log(e));
   }
 
   get title() {

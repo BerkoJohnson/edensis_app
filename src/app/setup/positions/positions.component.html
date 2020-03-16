@@ -11,28 +11,35 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let position of positions; let i = index">
-            <td>{{ position.title }}</td>
+          <tr
+            *ngFor="
+              let position of (positionService.$positions | async)?.data;
+              let i = index
+            "
+          >
+            <td class="spread">
+              <span> {{ position.title }}</span>
+              <a (click)="editPositon(position._id)">Edit</a>
+            </td>
             <td>{{ position.cast_type }}</td>
           </tr>
         </tbody>
       </table>
+      <button type="button" (click)="isEdit = false">Add New Position</button>
     </div>
     <div class="column col-1">
       <form [formGroup]="positionForm" (ngSubmit)="submitForm()">
         <fieldset>
-          <legend>Add New Position</legend>
+          <legend *ngIf="isEdit === false">Add New Position</legend>
+          <legend *ngIf="isEdit === true">Update Position</legend>
           <div class="fields">
             <div class="field">
               <label for="election">Election</label>
               <select name="election" id="election" formControlName="election">
                 <option value="">Select Election</option>
-                <option
-                  *ngFor="let elec of elections"
-                  [value]="elec._id"
-                  [selected]="(setup.$election | async)._id === elec._id"
-                  >{{ elec.title }}</option
-                >
+                <option *ngFor="let elec of elections" [value]="elec._id">{{
+                  elec.title
+                }}</option>
               </select>
             </div>
             <div class="field">
@@ -45,6 +52,7 @@
                 formControlName="title"
               />
             </div>
+            {{ title.errors | json }}
             <div class="field">
               <label for="cast_type">Vote Cast Type</label>
               <select
@@ -60,7 +68,7 @@
           </div>
           <input
             type="submit"
-            value="Save Position"
+            [value]="isEdit === false ? 'Save Position' : 'Update Position'"
             name="submit"
             [disabled]="!positionForm.valid"
           />
