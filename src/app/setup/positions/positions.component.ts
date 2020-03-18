@@ -40,6 +40,9 @@ export class PositionsComponent implements OnInit {
       .subscribe(elections => (this.elections = elections.data));
   }
 
+  useElection(election: Election) {
+    this.electionService.setElection(election);
+  }
   editPositon(id: string) {
     // Set isEdit to true
     this.isEdit = true;

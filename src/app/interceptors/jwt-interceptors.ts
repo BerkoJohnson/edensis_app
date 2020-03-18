@@ -7,13 +7,12 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   constructor(
-    @Inject(BROWSER_STORAGE) private storage: Storage,
     private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const newReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.storage.getItem('edensis-token')}`
+        Authorization: `Bearer ${this.auth.getToken()}`
       }
     });
     return next.handle(newReq);

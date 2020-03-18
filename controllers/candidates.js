@@ -1,5 +1,6 @@
 const Candidate = require("../models/Candidate");
 const ErrorResponse = require("../utils/errorResponse");
+const sharp = require('sharp');
 
 // Get Candidates
 exports.fetchCandidates = async (req, res, next) => {
@@ -118,12 +119,12 @@ exports.updatePhoto = async (req, res, next) => {
     if (!req.file) {
       return next(new ErrorResponse("Please select an image", 400));
     }
-
-    const imgBuffer = req.file.buffer.toString("base64");
+    const image = sharp(req.file.buffer).resize(200,200).toBuffer();
+    // const imgBuffer = req.file.buffer.toString("base64");
 
     const candidate = await Candidate.findByIdAndUpdate(
       req.params.id,
-      { photo: imgBuffer },
+      { photo: image },
       {
         new: true,
         runValidators: true

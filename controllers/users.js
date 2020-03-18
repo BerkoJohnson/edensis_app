@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
 const passport = require('passport');
+const sharp = require('sharp');
 
 
 // Get Users
@@ -91,7 +92,7 @@ exports.updateUser = async (req, res, next) => {
       runValidators: true
     });
     if (!user) {
-      return next(new ErrorResponse(`User not found`, 40));
+      return next(new ErrorResponse(`User not found`, 404));
     }
     res.status(200).json({
       success: true,
@@ -189,12 +190,14 @@ exports.updatePhoto = async (req, res, next) => {
       return next(new ErrorResponse("Please select an image", 400));
     }
 
-    const imgBuffer = req.file.buffer.toString("base64");
+    // const imgBuffer = req.file.buffer.toString("base64");
+    const image = await sharp(req.file.buffer).resize(200,200).toBuffer();
+
     // console.log();
 
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { photo: imgBuffer },
+      { photo: image },
       {
         new: true,
         runValidators: true

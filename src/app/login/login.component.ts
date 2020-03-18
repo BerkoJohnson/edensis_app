@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       this.auth
         .login({ email: this.f.email, password: this.f.password })
         .subscribe(p => {
-          console.log(1);
           this.router.navigateByUrl(this.history.getPreviousUrl());
         }, (error: HttpErrorResponse) => {
           this.errors = error.error.message;

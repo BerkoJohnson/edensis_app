@@ -1,40 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'csss/colors';
+@import 'csss/navigation';
+@import 'csss/forms';
+@import 'csss/table';
+
 * {
   box-sizing: border-box;
+  //   margin: 0;
+  //   padding: 0;
 }
+
 body {
-  background: black;
+  background: rgb(72,72,72);
   font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
 }
 
-.ng-dirty.ng-touched.ng-valid {
-  border: 1 solid green;
-  color: green;
-}
-.ng-dirty.ng-touched.ng-invalid {
-  border: 1 solid red;
-  color: red;
-}
 
-.wrapper {
-  width: 860px;
-  margin: 0 auto;
-  background-color: rgba(0, 0, 0, 1);
-  padding: 30px;
-  border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.attention-box {
-  width: 500px;
-  margin: 20px auto;
-  // margin-top: 10px;
-
-  fieldset {
-    padding: 2px;
-  }
-}
+// .wrapper {
+// //   padding: 10px;
+// }
 
 .error {
   text-align: center;
@@ -46,21 +33,11 @@ body {
 .main_header {
   text-align: center;
   text-transform: uppercase;
-  color: #44ddcc;
+  color: $primary_color;
   font-size: 2rem;
 }
 
-.sub_header {
-  color: #54aadd;
-  font-size: 1.2rem;
-  // margin: 0;
-  padding: 0;
-  margin: 20px 0;
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid rgb(11, 105, 105);
-  text-transform: uppercase;
-}
+
 
 .sections {
   display: flex;
@@ -75,7 +52,6 @@ body {
   font-size: 0.9rem;
   border-radius: 10px;
   text-decoration: none;
-  color: yellow;
   background-color: #00a;
 }
 
@@ -83,85 +59,15 @@ body {
   font-size: 0.9rem;
 }
 
-.sections a:hover,
-a.active {
-  background-color: yellow;
-  color: #00a;
-}
-
-fieldset {
-  background: lightseagreen;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-legend {
-  background-color: lightseagreen;
-  color: white;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: bold;
-  border: 1px solid white;
-  border-radius: 5px;
-}
-
-.fields {
-  margin: 10px 0;
-}
-
-.field {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 5px 0;
-}
-
-.field label {
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 0.8rem;
-  font-weight: bold;
-  width: 40%;
-  text-align: center;
-  /*margin-right: 10px;*/
-}
-
-.field input[type="text"],
-.field input[type="date"],
-.field input[type="email"],
-.field input[type="password"],
-.field select {
-  width: 60%;
-  padding: 5px 10px;
-}
-
-.field input[type="file"] {
-  width: 60%;
-}
-
-input[type="submit"] {
-  text-transform: uppercase;
-  border: none;
-  padding: 5px 10px;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  border-radius: 3px;
-  transition: all 0.2s;
-}
-
-input[type="submit"]:not(:disabled):hover {
-  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.9);
-}
-
 .columns {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin: 20px 0;
 }
 
 .column {
-  margin-right: 20px;
+  padding-right: 20px;
 
   &.col-1 {
     flex: 1;
@@ -174,110 +80,7 @@ input[type="submit"]:not(:disabled):hover {
   &.col-3 {
     flex: 3;
   }
-}
 
-table {
-  border-collapse: collapse;
-  color: white;
-  width: 100%;
-}
-
-.login {
-  width: 400px;
-  margin: 100px auto;
-}
-
-.login fieldset {
-  background-color: #ffb300;
-}
-
-#candidate_photo {
-  width: 200px;
-  height: 200px;
-  border: 1px solid burlywood;
-  background: #f0f018;
-
-  margin: 10px 0;
-}
-/*#b24920*/
-/*#ffb300*/
-
-.nav {
-  background-color: #f0f8ff;
-  margin: 0 auto;
-  width: 800px;
-}
-
-.nav_items {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav_sub {
-  background-color: rgb(11, 105, 105);
-  color: #fff;
-  margin: 0 auto;
-  width: 800px;
-  border-radius: 3px;
-
-  .nav_items {
-    display: flex;
-    // flex-direction: column;
-
-    .nav_link {
-      color: #fff;
-    }
-  }
-}
-
-.nav_item {
-  flex: 1;
-  text-align: center;
-
-  .nav_link {
-    padding: 5px 10px;
-    display: block;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-
-    &:hover {
-      background-color: #b24920;
-      color: #fff;
-    }
-
-    &.active {
-      background-color: #ffb300;
-    }
-  }
-}
-
-// Table styles
-table {
-  th {
-    background-color: #bac;
-    color: rgba(0, 0, 0, 0.7);
-  }
-
-  td.spread {
-    display: flex;
-    justify-content: space-between;
-    text-transform: uppercase;
-
-    a {
-      font-size: 0.6rem;
-      // color: rgb(165, 42, 165);
-      color: #ffb300;
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover {
-        color: rgb(9, 140, 216);
-      }
-    }
-  }
 }
 
 .image {

@@ -1,75 +1,63 @@
-<!-- Students -->
-<div class="wrapper">
-  <h4 class="sub_header">Students/Voters</h4>
-
-  <div class="columns">
-    <div class="column col-1">
-    <form method="post">
-      <fieldset>
-        <legend>Add New Candidate</legend>
-        <div class="fields">
-          <div class="field">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Enter full name"
-            />
-          </div>
-          <div class="field">
-            <label for="gender">Gender</label>
-            <select name="gender" id="gender">
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="studentID">Student ID</label>
-            <input
-              type="text"
-              name="studentID"
-              id="studentID"
-              placeholder="Enter Student ID"
-            />
-          </div>
-          <div class="field">
-            <!-- Automatically send the selected class and reload the page
+    <div class="columns">
+      <div class="column col-2">
+        <table border="1" cellspacing="10" cellpadding="5">
+          <thead>
+            <tr>
+              <th>Name of Candidate</th>
+              <th>Photo</th>
+              <th>AKA</th>
+              <th>Class</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="column col-1">
+        <form method="post">
+          <fieldset>
+            <legend>Add New Candidate</legend>
+            <div class="fields">
+              <div class="field">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter full name" />
+              </div>
+              <div class="field">
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="studentID">Student ID</label>
+                <input type="text" name="studentID" id="studentID" placeholder="Enter Student ID" />
+              </div>
+              <div class="field">
+                <!-- Automatically send the selected class and reload the page
                     with the students in that class for the candidate's selection
                 -->
-            <label for="class">Class</label>
-            <select name="class" id="class">
-              <option value="">Choose Class</option>
-              <option value="2A1">2A1</option>
-              <option value="2A2">2A2</option>
-              <option value="2A3">2A3</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="photo">Photo</label>
-            <input type="file" name="photo" id="photo" (change) ="previewImage($event)" />
-          </div>
-          <div class="image">
-            <img id="candidate_photo" alt="Candidate Photo Here" [src]="imageUrl"/>
-          </div>
-        </div>
-        <input type="submit" value="Save Candidate" name="submit" />
-      </fieldset>
-    </form>
+                <label for="class">Class</label>
+                <select name="class" id="class">
+                  <option value="">Choose Class</option>
+                  <option value="2A1">2A1</option>
+                  <option value="2A2">2A2</option>
+                  <option value="2A3">2A3</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="photo">Photo</label>
+                <input type="file" name="photo" id="photo" (change)="previewImage($event)" />
+              </div>
+              <div class="field">
+                <label for="">Voter's Photo</label>
+                <div class="image">
+                  <img id="candidate_photo" alt="Candidate Photo Here" [src]="imageUrl" />
+                </div>
+              </div>
+            </div>
+            <input type="submit" value="Save Candidate" name="submit" />
+          </fieldset>
+        </form>
+      </div>
     </div>
-    <div class="column col-1">
-      <table border="1" cellspacing="10" cellpadding="5">
-        <thead>
-          <tr>
-            <th>Name of Candidate</th>
-            <th>Photo</th>
-            <th>AKA</th>
-            <th>Class</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-</div>

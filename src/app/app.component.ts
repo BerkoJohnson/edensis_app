@@ -11,9 +11,22 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   user$: Observable<any>;
   image: any;
+  books: {
+    title: string;
+    pages: number;
+  }[] = [
+    { title: 'Book 1', pages: 120},
+    { title: 'Book 2', pages: 143},
+    { title: 'Book 4', pages: 450},
+    { title: 'Book 3', pages: 198},
+  ];
+
+  selectedBook: string;
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
+
   }
+ 
 }
 

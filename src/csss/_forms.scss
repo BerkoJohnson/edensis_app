@@ -1,0 +1,100 @@
+fieldset {
+  background: lightseagreen;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+legend {
+  background-color: $primary_color;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.fields {
+  margin: 10px 0;
+}
+
+.field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.field label {
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: 40%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.field input[type="text"],
+.field input[type="date"],
+.field input[type="email"],
+.field input[type="password"],
+.field select {
+  width: 60%;
+  padding: 5px 10px;
+}
+
+.field input[type="file"] {
+  width: 60%;
+}
+
+input[type="submit"],
+button,
+.btn {
+  text-transform: uppercase;
+  border: none;
+  padding: 5px 10px;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+
+
+  &:not(:disabled):hover {
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.login {
+  width: 400px;
+  margin: 100px auto;
+}
+
+.login fieldset {
+  background-color: #ffb300;
+}
+
+#candidate_photo {
+  width: 180px;
+  height: 180px;
+  border: 1px solid burlywood;
+  background: #f0f018;
+
+  margin: 20px 0;
+}
+
+
+
+.logout {
+  margin-left: 10px;
+  border-bottom: 1px solid red;
+  background-color: red;
+  color: white;
+
+  &:hover {
+    color: red;
+    background-color: transparent;
+    border-bottom: 1px solid red;
+  }
+}
