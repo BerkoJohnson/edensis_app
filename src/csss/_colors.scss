@@ -1,8 +1,9 @@
-$primary_color: #44ddcc;
+$primary_color: #ee840b;
 $secondary_color: saturate($color: $primary_color, $amount: 10);
 $dark_secondary_color: darken($secondary_color, 20);
 $light_secondary_color: lighten($secondary_color, 30);
 $darken_color: darken($primary_color, 30);
 $complement: complement($primary_color);
-$light_complement: lighten($complement, 20);
+$dark_complement: darken($complement, 20);
+$light_complement: lighten($complement, 40);
 $dark_color: rgba(0, 0, 0, 0.93);

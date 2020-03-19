@@ -1,5 +1,6 @@
 fieldset {
-  background: lightseagreen;
+  background-color: $darken_color;
+  color: white;
   padding: 10px;
   border-radius: 5px;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -7,11 +8,11 @@ fieldset {
 
 legend {
   background-color: $darken_color;
-  color: white;
+  // color: invert($darken_color);
   text-transform: uppercase;
   font-size: 0.8rem;
   font-weight: bold;
-  border: 1px solid white;
+  border: 1px solid $darken_color;
   border-radius: 5px;
   line-height: 1.7rem;
   padding: 4px 16px;
@@ -22,6 +23,7 @@ legend {
 }
 
 .field {
+  display: -wflex;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -30,12 +32,12 @@ legend {
 
 .field label {
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.7);
+  // color: rgba(0, 0, 0, 0.7);
   font-size: 0.8rem;
   font-weight: bold;
   width: 40%;
-  text-align: right;
-  margin-right: 10px;
+  // text-align: right;
+  // margin-right: 10px;
 }
 
 .field input[type="text"],
@@ -56,16 +58,28 @@ input[type="submit"],
 button,
 .btn {
   text-transform: uppercase;
-  border: none;
+  border: 1px solid transparent;
   padding: 5px 10px;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
   cursor: pointer;
   border-radius: 3px;
   transition: all 0.2s;
+  outline: none;
 
 
   &:not(:disabled):hover {
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.9);
+  }
+
+
+  &.primary {
+    background: $primary_color;
+
+    &:hover {
+      color: primary_color;
+      background: white;
+      border: 1px solid $primary_color;
+    }
   }
 }
 
@@ -91,7 +105,7 @@ button,
 // Login
 
 .login {
-  width: 300px;
+  width: 400px;
   margin: 100px auto;
 }
 
@@ -101,9 +115,8 @@ button,
   width: 180px;
   height: 180px;
   border: 1px solid burlywood;
-  background: #f0f018;
-
-  margin: 20px 0;
+  background: $light_secondary_color;
+  margin: 10px 0;
 }
 
 
@@ -119,4 +132,9 @@ button,
     background-color: transparent;
     border-bottom: 1px solid red;
   }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
 }

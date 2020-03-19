@@ -13,9 +13,6 @@
     flex: 3
   }
 
-  // .user-box {
-  //   width: 100px;
-  // }
   .spacer {
     flex: 1;
   }
@@ -26,6 +23,7 @@
     margin: auto 20px;
     padding: 0;
     color: $complement;
+    font-weight: bold;
     font-size: 2.75rem;
     text-transform: uppercase;
     text-align: center;
@@ -70,16 +68,13 @@
 }
 
 .sidenav {
-  margin-left: -30px;
-  width: 268px;
-
   ul {
     margin: 0;
     padding: 0;
   }
 
   li {
-    background: $primary_color;
+    background: $light_complement;
     list-style-type: none;
 
     a {

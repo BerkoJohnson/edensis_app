@@ -40,8 +40,8 @@ export class PositionsComponent implements OnInit {
     this.currentElection = election;
     this.electionService.setElection(election);
   }
-  
-  editPositon(id: string, electionID: string) {
+
+  editPositon(position: Position, electionID: string) {
     // Set isEdit to true
     this.isEdit = true;
 
@@ -51,15 +51,11 @@ export class PositionsComponent implements OnInit {
       onlySelf: true
     });
 
-
     this.election.setValue(electionID);
-    // Fetch Position from DB
-    if (id) {
-      this.positionService.getPosition(id).subscribe(p => {
-        this.positionToUpdate = p.data;
-        this.title.setValue(p.data.title);
-        this.cast_type.setValue(p.data.cast_type);
-      });
+    if (position) {
+      this.positionToUpdate = position;
+      this.title.setValue(position.title);
+      this.cast_type.setValue(position.cast_type);
     }
   }
 
@@ -82,12 +78,12 @@ export class PositionsComponent implements OnInit {
     };
 
     if (!this.isEdit) {
-      this.positionService.createPosition(pos).subscribe(
+      this.electionService.createPosition(pos, this.currentElection._id).subscribe(
         () => this.electionService.getElection(this.election.value).subscribe()
       );
     } else {
-      this.positionService
-        .updatePosition(this.positionToUpdate._id, pos)
+      this.electionService
+        .updatePosition(this.positionToUpdate._id, this.currentElection._id, pos)
         .subscribe(() => {
           this.electionService.getElection(this.election.value).subscribe();
         });

@@ -5,7 +5,8 @@ import {
   Position,
   ElectionPayload,
   PositionPayload,
-  ElectionsPayload
+  ElectionsPayload,
+  PositionsPayload
 } from '../interfaces';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -18,7 +19,7 @@ export class ElectionService {
   constructor(
     private http: HttpClient,
     @Inject(BROWSER_STORAGE) private storage: Storage) {
-      this.getElections().subscribe();
+    this.getElections().subscribe();
   }
 
   // tslint:disable-next-line:variable-name
@@ -42,9 +43,8 @@ export class ElectionService {
   /////////////////////// ELECTION START HERE /////////////////////////
 
   /** Get single election */
-  getElection(elec: string | Election): Observable<ElectionPayload> {
-    const id = typeof elec === 'string' ? elec : elec._id;
-    return this.http.get<ElectionPayload>(`/api/v1/elections/${id}`).pipe(
+  getElection(elec: string): Observable<ElectionPayload> {
+    return this.http.get<ElectionPayload>(`/api/v1/elections/${elec}`).pipe(
       tap(el => this._election.next(el.data))
     );
   }
@@ -59,25 +59,62 @@ export class ElectionService {
   /** Create new election */
   createElection(elec: Election): Observable<Election | boolean> {
     return this.http.post<Election>('/api/v1/elections/', elec)
-    .pipe(tap(_ => this.getElections().subscribe()));
+      .pipe(tap(_ => this.getElections().subscribe()));
   }
 
   /** Update election */
   updateElection(
-    elec: string | Election,
-    update: any | Election
+    elec: string,
+    update: any
   ): Observable<Election | boolean> {
-    const id = typeof elec === 'string' ? elec : elec._id;
-    return this.http.put<Election>(`/api/v1/elections/${id}`, update)
-    .pipe(tap(_ => this.getElections().subscribe()));
+    return this.http.put<Election>(`/api/v1/elections/${elec}`, update)
+      .pipe(tap(_ => this.getElections().subscribe()));
   }
 
   /** Delete election */
-  deleteElection(elec: string | Election): Observable<Election | boolean> {
-    const id = typeof elec === 'string' ? elec : elec._id;
-    return this.http.delete<Election>(`/api/v1/elections/${id}`)
-    .pipe(tap(_ => this.getElections().subscribe()));
+  deleteElection(elec: string): Observable<Election | boolean> {
+    return this.http.delete<Election>(`/api/v1/elections/${elec}`)
+      .pipe(tap(_ => this.getElections().subscribe()));
   }
 
   /////////////////////// ELECTION ENDS HERE /////////////////////////
+
+
+
+  /** Get single position */
+  getPosition(position: string, election: string): Observable<PositionPayload> {
+    return this.http.get<PositionPayload>(`/api/v1/elections/${election}/positions/${position}`)
+      .pipe(tap(_ => this.getElections().subscribe()));
+  }
+
+  /** Get positions */
+  getPositions(election: string): Observable<PositionsPayload> {
+    return this.http
+      .get<PositionsPayload>(`/api/v1/elections/${election}/positions/`)
+      .pipe(tap(_ => this.getElections().subscribe()));
+  }
+
+  /** Create new position */
+  createPosition(position: Position, election: string): Observable<PositionPayload> {
+    return this.http.post<PositionPayload>(`/api/v1/elections/${election}/positions/`, position)
+      .pipe(tap(_ => this.getElections().subscribe()));
+  }
+
+  /** Update position */
+  updatePosition(
+    position: string,
+    election: string,
+    update: any
+  ): Observable<PositionPayload> {
+    return this.http
+      .put<PositionPayload>(`/api/v1/elections/${election}/positions/${position}`, update);
+  }
+
+  /** Delete position */
+  deletePosition(position: string, election: string): Observable<PositionPayload> {
+    return this.http.delete<PositionPayload>(`/api/v1/elections/${election}/positions/${position}`)
+      .pipe(tap(_ => this.getElections().subscribe()));
+  }
+
+  /////////////////////// POSITION ENDS HERE /////////////////////////
 }
