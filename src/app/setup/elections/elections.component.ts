@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ElectionService } from 'src/app/services/election.service';
-import { Election, ElectionPayload } from 'src/app/interfaces';
+import { Election, ElectionPayload, ElectionsPayload } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-elections',
@@ -9,7 +9,7 @@ import { Election, ElectionPayload } from 'src/app/interfaces';
   styleUrls: ['./elections.component.scss']
 })
 export class ElectionsComponent implements OnInit {
-  elections: ElectionPayload;
+  elections: ElectionsPayload;
 
   electionForm: FormGroup;
 

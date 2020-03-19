@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const PositionSchema = require('./Position');
 
 const ElectionSchema = mongoose.Schema(
   {
@@ -15,12 +16,7 @@ const ElectionSchema = mongoose.Schema(
       type: String,
       default: '2020/2021'
     },
-    positions: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Position"
-      }
-    ]
+    positions: [PositionSchema]
   },
   {
     timestamps: true

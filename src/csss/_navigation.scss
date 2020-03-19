@@ -90,10 +90,11 @@
       font-weight: bold;
       color: black;
       text-align: center;
+      transition: 0.2s;
 
       &:hover {
-        color: black;
-        background: saturate($color: #44ddcc, $amount: 10);
+        color: white;
+        background: $dark_secondary_color;
       }
 
       &.active {

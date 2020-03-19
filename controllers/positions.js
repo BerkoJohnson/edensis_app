@@ -71,6 +71,7 @@ exports.createPosition = async (req, res, next) => {
 // Update Position
 exports.updatePosition = async (req, res, next) => {
   try {
+    console.log(req.body);
     const position = await Position.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true

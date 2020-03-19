@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let election of elections; let i = index">
+        <tr *ngFor="let election of (electionService.$elections | async); let i = index">
           <td align="center">{{ election.title }}</td>
           <td align="center">{{ election.school }}</td>
           <td align="center">
@@ -25,7 +25,7 @@
         </tr>
       </tbody>
     </table>
-    <table border="1" cellspacing="10" cellpadding="5" *ngIf="(electionService.election | async)">
+    <table border="1" cellspacing="10" cellpadding="5" *ngIf="(electionService.election | async) as Election">
       <thead>
         <tr>
           <th>Title of Position</th>
@@ -35,18 +35,18 @@
       </thead>
       <tbody>
         <tr *ngFor="
-              let position of (electionService.election | async)?.positions;
+              let position of Election?.positions;
               let i = index
             ">
           <td class="spread" align="center">
             {{ position.title }}
           </td>
           <td align="center">{{ position.cast_type }}</td>
-          <td align="center"><button type="button" (click)="editPositon(position._id)">Edit</button></td>
+          <td align="center"><button type="button" (click)="editPositon(position._id, Election?._id)">Edit</button></td>
         </tr>
       </tbody>
     </table>
-    <button type="button" (click)="isEdit = false">Add New Position</button>
+    <button type="button" (click)="addPosition()">Add New Position</button>
   </div>
   <div class="column col-1">
     <form [formGroup]="positionForm" (ngSubmit)="submitForm()">
@@ -58,7 +58,7 @@
             <label for="election">Election</label>
             <select name="election" id="election" formControlName="election">
               <option value="">Select Election</option>
-              <option *ngFor="let elec of elections" [value]="elec._id" [selected]="elec._id === (electionService.election | async)?._id">{{
+              <option *ngFor="let elec of (electionService.$elections | async)" [value]="elec._id">{{
                   elec.title
                 }}</option>
             </select>
@@ -77,8 +77,10 @@
           </div>
         </div>
         <input type="submit" [value]="isEdit === false ? 'Save Position' : 'Update Position'" name="submit"
-          [disabled]="!positionForm.valid" />
+          [disabled]="positionForm.invalid" />
       </fieldset>
+
+      {{ election.errors |json}}
     </form>
   </div>
 </div>

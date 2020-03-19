@@ -8,13 +8,14 @@ import {
 } from '../interfaces';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ElectionService } from './election.service';
 // import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PositionService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private election: ElectionService) {
     // this.loadPositions();
   }
 
@@ -41,18 +42,12 @@ export class PositionService {
   /** Get positions */
   getPositions(election?: string): Observable<PositionsPayload> {
     return this.http
-      .get<PositionsPayload>(`/api/v1/positions?election=${election}`)
-      .pipe(tap(ps => this._positions.next(ps)));
+      .get<PositionsPayload>(`/api/v1/positions?election=${election}`);
   }
 
   /** Create new position */
   createPosition(position: Position): Observable<PositionPayload> {
-    return this.http.post<PositionPayload>('/api/v1/positions', position).pipe(
-      tap(p => {
-        const election = p.data.election as string;
-        this.getPositions(election).subscribe();
-      })
-    );
+    return this.http.post<PositionPayload>('/api/v1/positions', position);
   }
 
   /** Update position */
@@ -62,24 +57,13 @@ export class PositionService {
   ): Observable<PositionPayload> {
     const id = typeof position === 'string' ? position : position._id;
     return this.http
-      .put<PositionPayload>(`/api/v1/positions/${id}`, update)
-      .pipe(
-        tap(p => {
-          const election = p.data.election as string;
-          this.getPositions(election).subscribe();
-        })
-      );
+      .put<PositionPayload>(`/api/v1/positions/${id}`, update);
   }
 
   /** Delete position */
   deletePosition(position: string | Position): Observable<PositionPayload> {
     const id = typeof position === 'string' ? position : position._id;
-    return this.http.delete<PositionPayload>(`/api/v1/positions/${id}`).pipe(
-      tap(p => {
-        const election = p.data.election as string;
-        this.getPositions(election).subscribe();
-      })
-    );
+    return this.http.delete<PositionPayload>(`/api/v1/positions/${id}`);
   }
 
   /////////////////////// POSITION ENDS HERE /////////////////////////

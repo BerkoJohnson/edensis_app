@@ -36,8 +36,8 @@ app.use(passport.initialize());
 app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/users', require('./routes/users'));
 app.use('/api/v1/students', require('./routes/students'));
-app.use('/api/v1/candidates', require('./routes/candidates'));
-app.use('/api/v1/positions', require('./routes/positions'));
+// app.use('/api/v1/candidates', require('./routes/candidates'));
+// app.use('/api/v1/positions', require('./routes/positions'));
 app.use('/api/v1/elections', require('./routes/elections'));
 
 app.get('*', (req, res) => {

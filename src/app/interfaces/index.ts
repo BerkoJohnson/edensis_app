@@ -12,6 +12,10 @@ export interface Payload {
 }
 
 export interface ElectionPayload extends Payload {
+  data: Election;
+}
+
+export interface ElectionsPayload extends Payload {
   data: Election[];
 }
 

@@ -14,8 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./positions.component.scss']
 })
 export class PositionsComponent implements OnInit {
-  elections: Election[];
-
+  currentElection: Election;
   positionForm: FormGroup;
   isEdit = false;
   positionToUpdate: Position;
@@ -27,32 +26,33 @@ export class PositionsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.positionForm = this.fb.group({
-      title: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      title: ['', [Validators.required]],
       election: ['', Validators.required],
       cast_type: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    // Get all elections to populate the elections field in the position form
-    this.electionService
-      .getElections()
-      .subscribe(elections => (this.elections = elections.data));
+
   }
 
   useElection(election: Election) {
+    this.currentElection = election;
     this.electionService.setElection(election);
   }
-  editPositon(id: string) {
+  
+  editPositon(id: string, electionID: string) {
     // Set isEdit to true
     this.isEdit = true;
 
-    // Cannot change the election
     this.election.disable({
       emitEvent: true,
+      // Cannot change the election
       onlySelf: true
     });
 
+
+    this.election.setValue(electionID);
     // Fetch Position from DB
     if (id) {
       this.positionService.getPosition(id).subscribe(p => {
@@ -63,6 +63,13 @@ export class PositionsComponent implements OnInit {
     }
   }
 
+  addPosition() {
+    this.isEdit = false;
+    this.election.setValue(this.currentElection._id || '');
+    this.title.setValue(null);
+    this.cast_type.setValue('Thumbs');
+  }
+
   submitForm() {
     if (this.positionForm.invalid) {
       return;
@@ -70,15 +77,20 @@ export class PositionsComponent implements OnInit {
 
     const pos: Position = {
       title: this.title.value,
-      cast_type: this.cast_type.value
+      cast_type: this.cast_type.value,
+      election: this.election.value
     };
 
     if (!this.isEdit) {
-      this.positionService.createPosition(pos).subscribe();
+      this.positionService.createPosition(pos).subscribe(
+        () => this.electionService.getElection(this.election.value).subscribe()
+      );
     } else {
       this.positionService
         .updatePosition(this.positionToUpdate._id, pos)
-        .subscribe();
+        .subscribe(() => {
+          this.electionService.getElection(this.election.value).subscribe();
+        });
     }
   }
 

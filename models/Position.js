@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
+const CandidateSchema = require('./Candidate');
 
 const PositionSchema = mongoose.Schema(
   {
@@ -14,20 +14,12 @@ const PositionSchema = mongoose.Schema(
       enum: ["Thumbs", "Yes/No"],
       default: "Thumbs",
     },
-    election: {
-      type: mongoose.Types.ObjectId,
-      ref: "Election"
-    },
-    candidates: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Candidate"
-      }
-    ]
+    candidates: [CandidateSchema]
   },
   {
     timestamps: true
   }
 );
 
-module.exports = mongoose.model("Position", PositionSchema);
+// module.exports = mongoose.model("Position", PositionSchema);
+module.exports = PositionSchema
